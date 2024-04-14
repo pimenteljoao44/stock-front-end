@@ -1,0 +1,36 @@
+<!-- FORMULÁRIO DE NOVA CATEGORIA -->
+<div *ngIf="categorytAction?.event?.action === addCategorieAction">
+  <form [formGroup]="addCategorieForm" (ngSubmit)="handleSubmitAddCategory()">
+    <div class="card flex flex-column md:flex-column gap-3">
+      <!-- Nome da categoria -->
+      <input pInputText placeholder="Nome" formControlName="name" />
+      <div
+        class="flex flex-row justify-content-center align-content-center align-items-center m-1"
+      >
+        <p-button
+          [disabled]="!addCategorieForm.valid"
+          type="submit"
+          label="Concluir"
+        ></p-button>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- FORMULÁRIO DE EDITAR CATEGORIA -->
+<div *ngIf="categorytAction.event?.action === editCategorieAction">
+  <form [formGroup]="editCategorieForm" (ngSubmit)="handleSubmitEditCategory()">
+    <div class="card flex flex-column md:flex-column gap-3">
+            <!-- Nome da categoria -->
+            <input pInputText placeholder="Nome" formControlName="name" />
+            <div
+              class="flex flex-row justify-content-center align-content-center align-items-center m-1"
+            >
+              <p-button
+                [disabled]="!editCategorieForm.valid"
+                type="submit"
+                label="Concluir"
+              ></p-button>
+            </div>
+    </div>
+  </form>
+</div>

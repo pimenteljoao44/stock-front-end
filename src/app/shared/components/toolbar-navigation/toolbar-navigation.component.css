@@ -1,0 +1,5 @@
+#custom-toolbar .p-toolbar-group-center {
+    max-height: 50px; 
+    overflow-y: auto;
+  }
+  

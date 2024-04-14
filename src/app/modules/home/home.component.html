@@ -1,0 +1,98 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="flex justify-content-center text-align-center">
+      <!-- LOGIN --->
+      <form [formGroup]="loginForm" (ngSubmit)="onsubmitLoginForm()">
+        <p-card
+          styleClass="mt-10"
+          header="Login"
+          subheader="Faça Login com sua conta existente"
+          *ngIf="loginCard"
+        >
+          <div class="flex justify-content-center text-align-center">
+            <input
+              type="email"
+              pInputText
+              placeholder="Email"
+              formControlName="email"
+            />
+          </div>
+          <div class="flex justify-content-center text-align-center mt-3">
+            <input
+              type="password"
+              pInputText
+              placeholder="Senha"
+              formControlName="senha"
+            />
+          </div>
+          <div class="card flex justify-content-center mt-3">
+            <button
+              type="submit"
+              pButton
+              pRipple
+              label="Fazer Login"
+              [disabled]="!loginForm.valid"
+            ></button>
+          </div>
+          <span
+            class="flex justify-content-center text-align-center align-content-center mt-3 text-red-600 font-semi-bold"
+            (click)="loginCard = !loginCard"
+            style="cursor: pointer"
+          >
+            Criar Conta
+          </span>
+        </p-card>
+      </form>
+      <!----CRIAR CONTA----->
+      <form [formGroup]="siginupForm" (ngSubmit)="onsubmitSignUpForm()">
+        <p-card
+          styleClass="mt-10"
+          header="Criar Conta"
+          subheader="Crie já sua conta gratuita!"
+          *ngIf="!loginCard"
+        >
+          <div class="flex justify-content-center text-align-center">
+            <input
+              type="text"
+              pInputText
+              placeholder="Nome"
+              formControlName="nome"
+            />
+          </div>
+          <div class="flex justify-content-center text-align-center mt-3">
+            <input
+              type="email"
+              pInputText
+              placeholder="Email"
+              formControlName="email"
+            />
+          </div>
+          <div class="flex justify-content-center text-align-center mt-3">
+            <input
+              type="password"
+              pInputText
+              placeholder="Senha"
+              formControlName="senha"
+            />
+          </div>
+          <div class="card flex justify-content-center mt-3">
+            <button
+              type="submit"
+              pButton
+              pRipple
+              label="Criar Conta"
+              [disabled]="!siginupForm.valid"
+            ></button>
+          </div>
+          <span
+            class="flex justify-content-center text-align-center align-content-center mt-3 text-red-600 font-semi-bold"
+            style="cursor: pointer"
+            (click)="loginCard = !loginCard"
+          >
+            Fazer Login
+          </span>
+        </p-card>
+      </form>
+    </div>
+  </div>
+</div>
