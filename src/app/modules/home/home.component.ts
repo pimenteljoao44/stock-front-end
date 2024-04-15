@@ -16,6 +16,7 @@ import { UserService } from 'src/app/services/user/user.service';
 export class HomeComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   loginCard = true;
+  isLoading: boolean = false;
 
   loginForm = this.formbuilder.group({
     email:['',Validators.required],
@@ -41,6 +42,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   onsubmitLoginForm():void {
+    this.isLoading = true;
     if(this.loginForm.value && this.loginForm.valid) {
       this.userService.authUser(this.loginForm.value as AuthRequest)
       .pipe(
@@ -58,6 +60,7 @@ export class HomeComponent implements OnInit, OnDestroy {
               detail:`Bem Vindo devolta ${response.nome}`,
               life:2000
             })
+            this.isLoading = false;
           }
         },
         error:(err) => {
@@ -67,6 +70,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             detail:'Erro ao fazer login',
             life:2000
           })
+          this.isLoading = false;
           console.log(err)
         },
       }) 

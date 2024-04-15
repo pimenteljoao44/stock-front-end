@@ -19,6 +19,7 @@ import { CategorieDataTransferService } from 'src/app/shared/services/category/c
 })
 export class CategoryFormComponent implements OnInit,OnDestroy {
   private readonly destroy$: Subject<void> = new Subject();
+  isLoading: boolean = false;
   public categoriesDatas: Array<GetCategoriesResponse> = [];
   public categorySelected!: GetCategoriesResponse;
   public categoriesSelectedDatas!:GetCategoriesResponse;
@@ -61,12 +62,14 @@ export class CategoryFormComponent implements OnInit,OnDestroy {
   }
 
   getAllCategories() {
+    this.isLoading = true;
     this.categoryService.getAllCategories()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (response) => {
           if (response.length > 0) {
             this.categoriesDatas = response;
+            this.isLoading = false;
           }
         },
         error: (err) => {
@@ -77,11 +80,13 @@ export class CategoryFormComponent implements OnInit,OnDestroy {
             detail: 'Erro ao buscar categorias',
             life: 2500
           });
+          this.isLoading = false;
         }
       });
   }
 
   handleSubmitAddCategory(): void {
+    this.isLoading = true;
     if (this.addCategorieForm.valid) {
       this.categoryService.createCategorie(this.addCategorieForm.value as CreateCategoryRequest)
         .pipe(takeUntil(this.destroy$))
@@ -94,6 +99,7 @@ export class CategoryFormComponent implements OnInit,OnDestroy {
                 detail: 'Categoria Criada com sucesso',
                 life: 2500
               });
+              this.isLoading = false;
             }
           },
           error: (err) => {
@@ -104,6 +110,7 @@ export class CategoryFormComponent implements OnInit,OnDestroy {
               detail: 'Erro ao criar categoria',
               life: 2500
             });
+            this.isLoading = false;
           }
         });
     } else {
@@ -113,11 +120,13 @@ export class CategoryFormComponent implements OnInit,OnDestroy {
         detail: 'Por favor, preencha todos os campos corretamente',
         life: 2500
       });
+      this.isLoading = false;
     }
     this.addCategorieForm.reset();
   }
 
   handleSubmitEditCategory():void {
+    this.isLoading = true
     if(this.editCategorieForm.value && this.editCategorieForm.valid && this.categorytAction?.event?.id) {
       const requestEditCategorie:EditCategorieRequest = {
         categoryId: this.categorytAction?.event?.id as number,
@@ -133,7 +142,8 @@ export class CategoryFormComponent implements OnInit,OnDestroy {
             detail:'Categoria editada  com sucesso',
             life:2500
           });
-          this.editCategorieForm.reset();       
+          this.editCategorieForm.reset(); 
+          this.isLoading = false;      
         },
         error:(err) => {
           console.log(err)
@@ -144,6 +154,7 @@ export class CategoryFormComponent implements OnInit,OnDestroy {
             life:2500
           })
           this.editCategorieForm.reset();
+          this.isLoading = false;
         }
       })
     }

@@ -21,6 +21,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmationService } from 'primeng/api';
 import { CategoryFormComponent } from './components/category-form/category-form.component';
 import { CategoryTableComponent } from './components/category-table/category-table.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import { CategoryTableComponent } from './components/category-table/category-tab
     DynamicDialogModule,
     DropdownModule,
     ConfirmDialogModule,
-    TooltipModule
+    TooltipModule,
+    ProgressSpinnerModule
   ],
   declarations: [CategoryHomeComponent,CategoryFormComponent,CategoryTableComponent],
   providers:[DialogService,ConfirmationService]

@@ -13,6 +13,7 @@ import { MessageService } from 'primeng/api';
 import {ChartModule} from 'primeng/chart';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DashboardHomeComponent } from './page/dashboard-home/dashboard-home.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   declarations:[DashboardHomeComponent],
@@ -27,7 +28,8 @@ import { DashboardHomeComponent } from './page/dashboard-home/dashboard-home.com
     CardModule,
     ToastModule,
     ChartModule,
-    SharedModule
+    SharedModule,
+    ProgressSpinnerModule
   ],
   providers: [CookieService,MessageService],
 })

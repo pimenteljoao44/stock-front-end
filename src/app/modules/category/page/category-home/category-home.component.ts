@@ -16,6 +16,7 @@ import { CategoryFormComponent } from '../../components/category-form/category-f
 export class CategoryHomeComponent implements OnInit,OnDestroy {
 private readonly destroy$:Subject<void> = new Subject();
 public categoriesDatas:Array<GetCategoriesResponse> = [];
+isLoading: boolean = false;
 
 private ref!:DynamicDialogRef;
   constructor(
@@ -31,12 +32,14 @@ private ref!:DynamicDialogRef;
   }
 
   getAPICategoriesDatas() {
+    this.isLoading = true;
     this.categoriesService.getAllCategories()
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next:(response) => {
         if(response.length > 0) {
           this.categoriesDatas = response
+          this.isLoading = false;
         }
       },
       error:(err) => {
@@ -48,18 +51,21 @@ private ref!:DynamicDialogRef;
           detail:'Erro ao buscar categorias.',
           life:2000
         })
+        this.isLoading = false;
       }
     })
   }
 
 
   getAllCategories(){
+    this.isLoading = true;
     this.categoriesService.getAllCategories()
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next:(response) => {
         if(response.length > 0){
           this.categoriesDatas = response;
+          this.isLoading = false;
         }
       },
       error:(err) => {
@@ -71,6 +77,7 @@ private ref!:DynamicDialogRef;
           life:2500
         })
         this.router.navigate(['/dashboard'])
+        this.isLoading = false;
       }
     })
   }

@@ -12,7 +12,7 @@ import { ProductDataTransferService } from 'src/app/shared/services/product/prod
 })
 export class DashboardHomeComponent implements OnInit,OnDestroy {  
   private destroy$ = new Subject<void>();
-
+  isLoading: boolean = false;
   public productsList:Array<GetAllProductsResponse> = [];
   public productsChartDatas!:ChartData;
   public productsChartOptions!:ChartOptions;
@@ -25,6 +25,7 @@ export class DashboardHomeComponent implements OnInit,OnDestroy {
   }
 
   getProductsDatas():void {
+    this.isLoading = true;
     this.productService.getAllProducts()
     .pipe(
       takeUntil(this.destroy$)
@@ -35,6 +36,7 @@ export class DashboardHomeComponent implements OnInit,OnDestroy {
         this.productsList = response
         this.productsDTO.setProductsDatas(this.productsList)
         this.setProductsChartConfig();
+        this.isLoading = false;
       },
       error:(err) => {
         console.log(err)
@@ -44,6 +46,7 @@ export class DashboardHomeComponent implements OnInit,OnDestroy {
           detail:'Erro ao buscar produtos',
           life:2000
         })
+        this.isLoading = false;
       }
     })
   }

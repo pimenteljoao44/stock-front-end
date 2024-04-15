@@ -6,6 +6,8 @@ import { GetAllProductsResponse } from 'src/app/models/interfaces/products/respo
   providedIn: 'root'
 })
 export class ProductDataTransferService {
+  isLoading: boolean = false;
+
 
 public productsDataEmitter$ = new BehaviorSubject<Array<GetAllProductsResponse> | null>(null);
 
@@ -19,6 +21,7 @@ setProductsDatas(products:Array<GetAllProductsResponse>):void {
 }
 
 getProductsDatas() {
+  this.isLoading = true;
   this.productsDataEmitter$.pipe(
     take(1),
     map((data) => data?.filter((product)=> product.amount > 0))
@@ -27,6 +30,7 @@ getProductsDatas() {
     next:(response) => {
       if(response) {
         this.procutsDatas = response
+        this.isLoading = false;
       }
     }
   })

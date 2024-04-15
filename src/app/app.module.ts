@@ -13,6 +13,7 @@ import {ToastModule} from 'primeng/toast';
 import { HomeComponent } from './modules/home/home.component';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MessageService } from 'primeng/api';
     CardModule,
     InputTextModule,
     ToastModule,
-    ButtonModule
+    ButtonModule,
+    ProgressSpinnerModule
   ],
   providers: [CookieService,MessageService],
   bootstrap: [AppComponent]

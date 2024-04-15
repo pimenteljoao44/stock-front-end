@@ -21,7 +21,7 @@ import { PRODUCTS_ROUTES } from './products.routing';
 import { ProductsHomeComponent } from './page/products-home/products-home.component';
 import { ProductsTableComponent } from './components/products-table/products-table.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
-
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 @NgModule({
   declarations:[ProductsHomeComponent,ProductsTableComponent,ProductFormComponent],
   imports: [
@@ -42,7 +42,8 @@ import { ProductFormComponent } from './components/product-form/product-form.com
     DynamicDialogModule,
     DropdownModule,
     ConfirmDialogModule,
-    TooltipModule
+    TooltipModule,
+    ProgressSpinnerModule
   ],
   providers:[DialogService,ConfirmationService]
 })

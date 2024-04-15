@@ -16,6 +16,8 @@ import { ProductFormComponent } from '../../components/product-form/product-form
 export class ProductsHomeComponent implements OnInit,OnDestroy {
   private readonly destroy$ = new Subject<void>();
   private ref!:DynamicDialogRef;
+  isLoading: boolean = false;
+
 
   public productsDatas:Array<GetAllProductsResponse> = [];
 
@@ -42,12 +44,14 @@ export class ProductsHomeComponent implements OnInit,OnDestroy {
   }
 
   getAPIProductsDatas() {
+    this.isLoading = true;
     this.productService.getAllProducts()
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next:(response) => {
         if(response.length > 0) {
           this.productsDatas = response
+          this.isLoading = false;
         }
       },
       error:(err) => {
@@ -59,6 +63,7 @@ export class ProductsHomeComponent implements OnInit,OnDestroy {
           detail:'Erro ao buscar produtos.',
           life:2000
         })
+        this.isLoading = false;
       }
     })
   }
@@ -98,6 +103,7 @@ export class ProductsHomeComponent implements OnInit,OnDestroy {
   }
 
   deleteProduct(product_id:number) {
+    this.isLoading = true;
     if(product_id) {
       this.productService.deleteProduct(product_id)
       .pipe(takeUntil(this.destroy$))
@@ -110,6 +116,7 @@ export class ProductsHomeComponent implements OnInit,OnDestroy {
               detail:'Produto Removido com sucesso!',
               life:2500
             })
+            this.isLoading = false;
         },
         error:(err) => {
           console.log(err);
@@ -119,6 +126,7 @@ export class ProductsHomeComponent implements OnInit,OnDestroy {
             detail:'Erro ao remover produto!',
             life:2500
           })
+          this.isLoading = false;
         }
       })
     }
