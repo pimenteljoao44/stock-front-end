@@ -10,14 +10,16 @@ import { ProductDataTransferService } from 'src/app/shared/services/product/prod
   selector: 'app-dashboard-home',
   templateUrl: './dashboard-home.component.html',
 })
-export class DashboardHomeComponent implements OnInit,OnDestroy {  
+export class DashboardHomeComponent implements OnInit,OnDestroy {
   private destroy$ = new Subject<void>();
   isLoading: boolean = false;
   public productsList:Array<GetAllProductsResponse> = [];
   public productsChartDatas!:ChartData;
   public productsChartOptions!:ChartOptions;
 
-  constructor(private productService:ProductsService,private messageService:MessageService,private productsDTO:ProductDataTransferService) { }
+  constructor(private productService:ProductsService,
+    private messageService:MessageService,
+    private productsDTO:ProductDataTransferService) { }
 
 
   ngOnInit() {
@@ -106,6 +108,6 @@ export class DashboardHomeComponent implements OnInit,OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$.next();
-    this.destroy$.complete();  
+    this.destroy$.complete();
   }
 }
